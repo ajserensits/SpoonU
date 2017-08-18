@@ -1,0 +1,187 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Cardinal Events</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type='text/javascript' src='js/base.js'></script>
+  <script type='text/javascript' src='js/events.js'></script>
+
+    <!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <link href="css/style.css" rel="stylesheet">
+    <link href='css/style.css' rel='stylesheet'>
+</head>
+<body onload="loadEvents()">
+
+<div id="title">
+	<img id="logo" src="imgs/logo.png" alt="Logo">
+	<span>CALVERT HALL COLLEGE</span>
+</div>
+
+<div class='container'>
+<nav id='navigationBar' class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Cardinal Connect</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="home.html">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown" data-toggle="dropdown" href="#">Mentorships <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href='#' onclick='navigate("mentorships")'>All Mentorships</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "business")'>Business</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "finance")'>Finance</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "law")'>Law</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "medicine")'>Medicine</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "teaching")'>Teaching</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "trade")'>Trade</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "other")'>Other</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown" data-toggle="dropdown" href="#">Internships <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href='#' onclick='navigate("internships")'>All Internships</a></li>
+            <li><a href="#" onclick='navigate("internships", "business")'>Business</a></li>
+            <li><a href="#" onclick='navigate("internships", "finance")'>Finance</a></li>
+            <li><a href="#" onclick='navigate("internships", "law")'>Law</a></li>
+            <li><a href="#" onclick='navigate("internships", "medicine")'>Medicine</a></li>
+            <li><a href="#" onclick='navigate("internships", "teaching")'>Teaching</a></li>
+            <li><a href="#" onclick='navigate("internships", "trade")'>Trade</a></li>
+            <li><a href="#" onclick='navigate("internships", "other")'>Other</a></li>
+          </ul>
+        </li>
+        <li class='active'><a href="#" onclick='navigate("events")'>Events</a></li>
+        <li><a href='#' onclick='navigate("account")'>Account</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+	<div id="controls">
+		<button onclick="showFilterPopup()">Filter</button>
+		<!--<button onclick="showPostPopup()">Post</button>-->
+	</div>
+		<ul>
+			<li onclick="expand(this)">
+				<p class="title">Alumni/Student Picnic </p>
+				<p class="description hidden">Annual student/alum picnic hosted at Calvert Hall College.</p>
+				<p class="name hidden">Host: Our Alumni</p>
+				<p class="location hidden">Location: The Calvert Hall Campus</p>
+			</li>
+			<li onclick="expand(this)">
+				<p class="title">Faculty Appreciation Week</p>
+				<p class="description hidden">Appreciation week is inbound again! Give your
+				favorite faculty a good hand shake or even a hug! We all appreciate them
+				and let's spend a week to show it!</p>
+				<p class="name hidden">Host: Everyone (except the faculty!)</p>
+				<p class="location hidden">Location: Our Campus</p>
+			</li>
+		</ul>
+
+<!-- Filter Popup -->
+<div id="filterPopup" class="modal">
+	<!-- Popup content -->
+  	<div class="modal-content">
+    	<div class="modal-header">
+      		<span onclick="closeFilterPopup()" class="close">X</span>
+      		<h2>Filter By</h2>
+    	</div>
+	    <div class="modal-body">
+	    <button id="addFilter" style="float:right">Add Filter</button>
+	    <br>
+	    	<select class="filterKeys">
+	    		<option>Please select an option</option>
+	    	</select>
+	    	<select class="filterValues">
+	    		<option>---</option>
+	    	</select>
+	    	<br>
+	    </div>
+    <!-- <div class="modal-footer">
+      <h3>Modal Footer</h3>
+    </div>-->
+  </div>
+</div>
+
+<!-- <div id="postPopup" class="modal">
+	Popup content
+  	<div class="modal-content">
+    	<div class="modal-header">
+      		<span onclick="closePostPopup()" class="close">X</span>
+      		<h2>Post</h2>
+    	</div>
+	    <div class="modal-body">
+			<form>
+				<fieldset>
+					<legend>Mentorship Details</legend>
+					<ol>
+						<li>
+							<label for="firstName">Name:</label>
+							<input id="firstName" type="text" placeholder="First Name"/>
+							<input id="lastName" type="text" placeholder="Last Name"/>
+						</li>
+						<li>
+							<label for="mentorshipTitle">Mentorship Title:</label>
+							<input id="mentorshipTitle" type="text" placeholder="Title"/>
+						</li>
+						<li>
+							<label for="location">Location:</label>
+							<input id="location" type="text" placeholder="Location"/>
+						</li>
+					</ol>
+				</fieldset>
+				<fieldset>
+					<ol>
+						<li>
+							<label for="description">Description:</label>
+							<textarea id="description" rows=5></textarea>
+						</li>
+					</ol>
+				</fieldset>
+				<fieldset>
+					<ol>
+						<li>
+							<label for="interests">Interests:</label>
+							<input id="interests" type="text" placeholder="Interest"/>
+							<label id="enteredInterests"></label>
+						</li>
+					</ol>
+				</fieldset>
+				<fieldset>
+					<button type=submit>Submit Mentorship</button>
+				</fieldset>
+			</form>
+	    </div>
+    <div class="modal-footer">
+      <h4>Submissions will be submitted to administration
+      before approval! <br>All fields required.</h4>
+    </div>
+  </div>
+</div>-->
+<div id="footer">Calvert Hall College, Cardinal Connect. 2016. If there are any
+				issues or concerns, contact the Advancement Office at 999-9999-999.
+				<div onclick='openFeedbackTab()'
+				style='display: inline;text-decoration:underline;cursor:pointer'>Send Feedback!</div></div>
+
+	</div>
+
+</body>
+</html>

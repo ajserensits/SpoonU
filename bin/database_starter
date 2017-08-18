@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# check if the data directory exits, if not create it
+if [ ! -d "data" ]; then
+  echo "creating 'data' directory"
+  mkdir data
+fi
+
+# start mongo
+mongod --dbpath data/

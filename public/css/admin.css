@@ -1,0 +1,119 @@
+.tab-content
+{
+	width: 100%;
+	background-color: #222222;
+	height: 75%;
+}
+
+.tab-content:not(.active)
+{
+	display:none;
+}
+
+.dashboardField
+{
+	padding: 1% 1%;
+	color: #CCCCCC;
+	margin-left: 10%;
+	background-color: #333333;
+	width: 80%;
+	height: 40%;
+	border: solid 1.5px #272727;
+}
+
+.dashboardField p
+{
+	line-height: 0px;
+	width: 100%;
+	text-align: center;
+	margin-top: 1%;
+}
+
+.dashboardField table
+{
+	border-collapse: collapse;
+	width: 75%;
+	height: 50%;
+}
+
+.dashboardField td
+{
+	color: white;
+	border-bottom: 1px solid #444;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+	white-space: nowrap;
+	width: 50%;
+}
+
+.dashboardField td:last-child
+{
+	text-align: right;
+}
+
+.tab-content ul
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	color: white;
+	width: 100%;
+}
+
+.tab-content li
+{
+	padding: 8px 8px;
+	border-bottom: solid 1px #383838;
+}
+
+.tab-content li:hover
+{
+	background-color: #373737;
+}
+
+.tab-content li > span
+{
+	float: right;
+}
+
+
+.miniAccount
+{
+	font-size: 18px;
+	background-color: #282828;
+}
+
+#accountHolder > li > button,
+#mentorshipHolder > li > button,
+#internshipHolder > li > button
+{
+	float: right;
+	padding: 4px 4px;
+	font-size: 14px;
+	margin-left: 2px;
+	color: black;
+}
+
+#newRecommendation
+{
+	background-color : white;
+}
+
+h3, h4
+{
+	color: white;
+}
+
+#recommendationsTable
+{
+	width: 50%;
+}
+
+#recommendationsTable th, td
+{
+  word-wrap: break-word;
+	color: white;
+}

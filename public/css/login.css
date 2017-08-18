@@ -1,0 +1,52 @@
+input, input:before, input:after {
+	 -webkit-user-select: initial;
+	 -khtml-user-select: initial;
+	 -moz-user-select: initial;
+	 -ms-user-select: initial;
+	 user-select: initial;
+	} 
+
+#loginForm {
+	max-width: 350px;
+}
+
+form{
+  display:none;
+  padding: 16px;
+  margin: 0 auto;
+  margin-top: 3%;
+  background-color: #dfdfdf;
+  border-radius: 8px;
+}
+
+#success,
+#invalidLogin {
+	display: none;
+	margin-bottom: 4px;
+}
+
+#signUp:hover {
+	text-decoration: underline;
+}
+
+input, button {
+	margin-bottom: 4px;
+}
+
+button#backButton {
+	display:none;
+	margin-top: 2%;
+}
+
+
+#loginButton {
+	background-color: #bd343f;
+	border-color: #a31b25;
+	margin-bottom:  4px;
+}
+
+#loginButton:focus {
+	    outline: none !important;
+    border:2px solid #da8e94;
+    box-shadow: 0 0 16px #719ECE;
+}

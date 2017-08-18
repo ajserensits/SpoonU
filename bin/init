@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+(function () {
+	'use strict';
+
+	let mongodb = require('mongodb');
+	let hashPass = require('password-hash');
+	let Globals = require('../config');
+	let globals = new Globals();
+
+	let MongoClient = mongodb.MongoClient;
+	MongoClient.connect(globals.MONGO_URL, function (err, db) {
+		if (err) {
+			console.log('ERROR: Make sure the database is running @' + globals.MONGO_URL);
+			return;
+		} else {
+			let collection = db.collection('users');
+			collection.find({email:'root'}).toArray(function (err, result) {
+				if (err) {
+					console.log(err);
+				} else if (result.length === 1) {
+					console.log('root account already created');
+					console.log('exiting...');
+					db.close();
+					return;
+				} else {
+					// We manually put this in the database because account creation
+					// is validated which won't allow the username of 'root' or
+					//the role of 'admin'
+					// TODO: runner of script initially sets root password
+					let rootPass = 'admin';
+					let user = {
+						'active': 1,
+						'company': 'calvert-hall',
+						'email': 'root',
+						'password': hashPass.generate(rootPass),
+						'firstName': 'root',
+						'lastName': 'root',
+						'role': 'admin',
+						'focus': 'admin',
+						'focusTags': ''
+					};
+
+					collection.insert([user], function (err, done) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log('admin account created');
+						}
+						db.close();
+					});
+				}
+			});
+		}
+	});
+})();

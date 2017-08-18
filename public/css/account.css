@@ -1,0 +1,115 @@
+/*
+#dFdFdF
+*/
+.highlighted > td{
+  background-color: #dFdFdF;
+}
+.highlighted:hover > td{
+  background-color: #dFdFdF;
+}
+/*
+#e3e9f2
+*/
+.table-hover tbody tr:hover:not(#demographicsHead) td, .table-hover tbody tr:hover th {
+  background-color: #dFdFdF;
+  color: black;
+}
+
+.list-group{
+  text-align: center;
+}
+
+/*
+.glyphicon-ok-sign{
+  color: #00FF00;
+}
+*/
+.glyphicon-ok-sign{
+  color: white;
+}
+
+
+
+#interestDisplayList li {
+  color: white;
+  background-color: #c44a54;
+}
+
+#interestDisplayHead li {
+  color: #c44a54;
+  background-color: white;
+}
+
+#interestDisplayHead  .glyphicon-ok-sign {
+  color: #c44a54;
+}
+
+.generalInterestHead {
+  color: white;
+}
+
+#internshipRolesTable, #demographicsTable{
+  width : 30%;
+  background-color: #c44a54;
+  border-color: black;
+}
+
+#mentorshipRolesTable{
+  width : 35%;
+  background-color: #c44a54;
+  border-color: black;
+}
+
+#internshipRolesTable  td, #mentorshipRolesTable td, #demographicsTable td{
+  color: white;
+}
+
+#internshipRolesTable  th, #mentorshipRolesTable th, #demographicsTable th{
+  color: white;
+}
+
+.rolesTableHead th {
+  border : none;
+  background-color: black;
+  border-bottom : 2px solid #f44242;
+  text-align : center;
+}
+
+.roleCheck {
+  border-right: none;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 450px 550px;
+  grid-template-rows: auto auto auto;
+  grid-gap: 5px;
+}
+
+.box {
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.box1 {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: auto;
+  background-color: black;
+}
+
+.box2 {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background-color: black;
+}
+
+.box3 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: auto;
+}

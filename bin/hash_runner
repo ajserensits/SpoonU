@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+'use strict';
+
+let readline = require('readline');
+let hashPass = require('password-hash');
+
+
+let rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Enter Password: ', (pass) => {
+  console.log('Hashed: ' + hashPass.generate(pass));
+  rl.close();
+});

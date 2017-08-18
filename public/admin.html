@@ -1,0 +1,159 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Admin Panel</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type='text/javascript' src='js/base.js'></script>
+  <script type='text/javascript' src='js/client-admin.js'></script>
+
+    <!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <link href="css/style.css" rel="stylesheet">
+    <link href='css/style.css' rel='stylesheet'>
+    <link href='css/admin.css' rel='stylesheet'>
+</head>
+<body onload="loadDashboard()">
+
+<div id="title">
+	<img id="logo" src="imgs/logo.png" alt="Logo">
+	<span>CALVERT HALL COLLEGE</span>
+</div>
+<div class='container'>
+
+<nav id='navigationBar' class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Admin Panel</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class='active'><a href="#" onclick='showTab(this, "dashboardTab")' id='dashboard'>Dashboard</a></li>
+        <li class='accountTab'><a href="#" onclick="showTab(this, 'accountTab')" id='account'>Accounts</a></li>
+        <li class='internshipTab'><a href='#' onclick="showTab(this, 'internshipTab')" id="internship">Internships</a></li>
+        <li class='mentorshipTab'><a href='#' onclick="showTab(this, 'mentorshipTab')" id="mentorship">Mentorships</a></li>
+        <li class='recommendationsTab'><a href="#" onclick="showTab(this, 'recommendationsTab')" id="recommendations">Site Recommendations</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" onclick="returnToSite()"><span class="glyphicon glyphicon-home"></span> Return Home</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+	<div class="tab-content active" id="dashboardTab">
+	<br>
+	<div class="dashboardField">
+	<p>Accounts</p>
+		<table>
+			<tr>
+				<td>Student Accounts:</td>
+				<td id="numOfStudentAccounts">---</td>
+			</tr>
+			<tr>
+				<td>Advisor Accounts</td>
+				<td id="numOfAdvisorAccounts">---</td>
+			</tr>
+			<tr>
+				<td>Pending Accounts:</td>
+				<td id="numOfPendingAccounts">---</td>
+			</tr>
+		</table>
+	</div>
+
+	<br>
+	<div class="dashboardField">
+	<p>Internships and Mentorships</p>
+		<table>
+			<tr>
+				<td>Pending Internships:</td>
+				<td id="numOfPendingInternships">---</td>
+			</tr>
+			<tr>
+				<td>Approved Internships:</td>
+				<td id="numOfListedInternships">---</td>
+			</tr>
+			<tr>
+				<td>Pending Mentorships:</td>
+				<td id="numOfPendingMentorships">---</td>
+			</tr>
+			<tr>
+				<td>Approved Mentorships:</td>
+				<td id="numOfListedMentorships">---</td>
+			</tr>
+		</table>
+	</div>
+
+	</div>
+
+
+	<div class="tab-content" id="accountTab">
+		<ul id="accountHolder">
+			<li id="pendingAccounts" onclick="show('pendingAccounts')">
+							Pending Accounts<span class='expanded'>+</span></li>
+			<li id="studentAccounts" onclick="show('studentAccounts')">
+							Student Accounts<span class='expanded'>+</span></li>
+			<li id="advisorAccounts" onclick="show('advisorAccounts')">
+							Advisor Accounts<span class="expanded">+</span></li>
+			<li id='registeredAccounts' onclick="show('registeredAccounts')">
+							All Registered Accounts<span class='expanded'>+</span></li>
+		</ul>
+	</div>
+
+	<div class="tab-content" id="internshipTab">
+		<ul id='internshipHolder'>
+			<li id="pendingInternships" onclick="show('pendingInternships')">
+							Pending Internships<span class='expanded'>+</span></li>
+			<li id='allInternships' onclick="show('allInternships')">
+							Accepted Internships<span class='expanded'>+</span></li>
+		</ul>
+	</div>
+
+	<div class="tab-content" id="mentorshipTab">
+		<ul id="mentorshipHolder">
+			<li id="pendingMentorships" onclick="show('pendingMentorships')">
+							Pending Mentorships<span class='expanded'>+</span></li>
+			<li id='allMentorships' onclick="show('allMentorships')">
+							Accepted Mentorships<span class='expanded'>+</span></li>
+		</ul>
+	</div>
+  <div class="tab-content" id="recommendationsTab">
+    <h3> Enter a recommendation you have for the site! </h3>
+    <br>
+    <textarea id="newRecommendation" rows="5" cols="40">Enter your recommendation here! </textarea>
+    <br>
+    <h4>Priority</h4>
+    <select id = "recommendationPriority">
+      <option value = "1" selected="selected"> 1 </option>
+      <option value = "2"> 2 </option>
+      <option value = "3"> 3 </option>
+    </select>
+    <br>
+    <button onclick = "makeRecommendation()">Submit Recommendation</button>
+    <br>
+    <br>
+    <br>
+		<table id="recommendationsTable" class ="table table-bordered">
+      <thead id = 'recommendationsTableHead'>
+        <th>#</th><th>Recommendation</th><th>Priority</th>
+      </thead>
+      <tbody id="recommendationsTableBody">
+
+      </tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

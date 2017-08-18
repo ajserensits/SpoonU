@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Connect Login</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <link href="css/style.css" rel="stylesheet">
+  <link href='css/style.css' rel='stylesheet'>
+  <link href='css/login.css' rel='stylesheet'>
+
+    <script>
+		'use strict';
+
+		$(document).ready(function () {
+	    	$('#loginForm').fadeIn('slow');
+
+	    	$('#loginForm').submit(function (event) {
+	    		event.preventDefault();
+	    		login();
+	    	});
+
+	    	$('#registerForm').submit(function (event) {
+	    		event.preventDefault();
+	    		register();
+	    	});
+
+	 		$('#inputUsername, #inputPassword').focus(function () {
+	 			$('#invalidLogin').slideUp();
+	 			$('#invalidLogin').fadeOut('slow');
+	 		});
+
+	 		$('#signUp').click(function () {
+	 			$('#loginForm').css('display', 'none');
+	 			$('#backButton').css('display', 'block');
+	 			$('#registerForm').fadeIn(); //.css('display', 'block');
+	 		});
+		});
+
+		function login() {
+			var username = $("#inputUsername").val();
+			var password = $("#inputPassword").val();
+
+			if(username != "" && password != "")
+			{
+				$.ajax({
+					type: 'POST',
+					url: '/Login',
+                    contentType: 'application/json',
+					data: JSON.stringify({
+						'action': 'login',
+						'username': username,
+						'password': password,
+					}),
+					complete: function(data)
+					{
+						console.log(data);
+						if (data.status == 500 | 'SERVER_ERROR' === data.responseText) {
+							$('#errorText').text("Server Inactive!");
+							$('#invalidLogin').slideDown();
+						} else if('LOGIN_SUCCESS' == data.responseText) {
+							window.location.href = "home.html";
+						}else if('LOGIN_ADMIN' == data.responseText)
+							window.location.href = "admin.html";
+						else if("ACCOUNT_INACTIVE" == data.responseText) {
+							$('#errorText').text("Account Not Active");
+							$('#invalidLogin').slideDown();
+						} else {
+							$("#errorText").text("Invalid Credentials!");
+							$('#invalidLogin').slideDown();
+						}
+					},
+				});
+			}
+		}
+
+		function reload() {
+			$('#registerForm').css('display', 'none');
+			$('#loginForm').fadeIn();
+			$('#backButton').css('display', 'none');
+		}
+
+		function register () {
+
+			var firstName = $('#firstName').val();
+			var lastName = $('#lastName').val();
+
+			var email = $('#email').val();
+
+			var password = $('#password').val();
+			var password2 = $('#password2').val();
+
+			var accountType = $('#accountType').val();
+
+			$('#password').val('');
+			$('#password2').val('');
+
+
+
+			$.ajax({
+				type: 'POST',
+				url: '/Register',
+                contentType: 'application/json',
+				data: JSON.stringify({
+					'action': 'register',
+					'username': email,
+					'password': password,
+					'firstName': firstName,
+					'lastName': lastName,
+					'status': accountType,
+          'interests':[],
+          'internshipRoles':[],
+          'mentorshipRoles':[],
+          'company':'',
+          'personalBio':'',
+          'jobTitle':''
+				}), complete: function (data) {
+					console.log(data);
+
+                    if(data.responseJSON && data.responseJSON.INVALID_FORM) {
+                        alert(data.responseJSON.INVALID_FORM);
+                    } else if(data.responseText === 'ACCOUNT_CREATED') {
+                        $('#backButton').css('display', 'none');
+						$('#registerForm').css('display', 'none');
+						$('#loginForm').fadeIn();
+						$('#success').text('Account pending apporval from Calvert Hall. Your email will be your username!');
+						$('#success').slideDown();
+					} else if (data.responseText === 'ACOUNT_EXISTS') {
+						//$('#registerForm').css('display', 'none');
+					} else if (data.responseText === 'SERVER_ERROR') {
+						$('#registerForm').css('display', 'none');
+						$('#errorText').text('Server Error!');
+						$('#loginForm').fadeIn();
+						$('#invalidLogin').slideDown();
+					}
+				}
+			});
+		}
+
+    </script>
+
+  </head>
+<body>
+
+<div id="title">
+	<img id="logo" src="imgs/logo.png" alt="Logo">
+	<span>CALVERT HALL COLLEGE</span>
+</div>
+
+<div class="container">
+
+
+	<form id='loginForm' class="form-signin">
+		<label for="inputUsername" class="sr-only">Username</label>
+		<input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus/>
+
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required/>
+
+		<button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+		<div id='success' class="alert alert-success" role="alert"></div>
+
+		<div id="invalidLogin" class="alert alert-danger" role="alert">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			<span id="errorText">Invalid Credentials</span>
+		</div>
+
+		<label id='signUp'>Sign up</label>
+	</form>
+
+  <button id='backButton' onclick='reload()'>Return to Login</button>
+
+
+  <form id='registerForm' class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="firstName">First Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+      </div>
+    </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Last Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Email:</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" placeholder="Enter email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" id="password" placeholder="Enter password">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Confirm Password:</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" id="password2" placeholder="Retype Password">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Account Type:</label>
+      <div class="col-sm-10">
+		<select id='accountType' class='form-control'>
+			<option value='Student'>Student</option>
+			<option value='Advisor'>Advisor</option>
+		</select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</body>
+</html>

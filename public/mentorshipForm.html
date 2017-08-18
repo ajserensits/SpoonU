@@ -1,0 +1,210 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Mentorship Form</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type='text/javascript' src='js/base.js'></script>
+
+    <!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    <link href="css/style.css" rel="stylesheet">
+  <link href='css/style.css' rel='stylesheet'>
+
+	<script>
+	'use strict';
+
+	$(document).ready(function () {
+    	$('#registerForm').submit(function (event) {
+    		event.preventDefault();
+    		submitMentorship();
+    	});
+	});
+
+  function getAccount () {
+  	$.ajax({
+  		type: 'POST',
+  		url: '/GetUser',
+  		contentType: 'application/json',
+  		data: JSON.stringify({
+  			'action': 'getUserAccount',
+  		}), complete: function (data) {
+  			if(data.responseText == '') {returnToLogin(); return;}
+  			if (typeof data.responseJSON.company !== 'undefined') {
+          $('#company').val(data.responseJSON.company);
+        }
+        if (typeof data.responseJSON.email !== 'undefined') {
+          $('#contact').val(data.responseJSON.email);
+        }
+  		},
+  	});
+  }
+
+	function submitMentorship (){
+
+		var mentorshipTitle = $('#mentorshipTitle').val();
+		var location = $('#location').val();
+		var company = $('#company').val();
+		var contact = $('#contact').val();
+		var description = $('#description').val();
+		var mentorshipFocus = $('#mentorshipFocus').val();
+        var tags = $('#tags').val();
+
+		$.ajax({
+			type: 'POST',
+			url: '/SubmitMentorship',
+            contentType: 'application/json',
+			data: JSON.stringify({
+				'action': 'submitMentorship',
+				'title': mentorshipTitle,
+				'location': location,
+				'company': company,
+                'contact': contact,
+				'description': description,
+				'focus': mentorshipFocus,
+                'tags': tags
+			}), complete: function (data) {
+				console.log(data);
+        if (data.responseJSON && data.responseJSON.INVALID_FORM) {
+            alert(data.responseJSON.INVALID_FORM);
+        } else if (data.responseText === 'MENTORSHIP_CREATED'){
+            $('#mentorshipTitle').val('');
+            $('#location').val('');
+            $('#company').val('');
+            $('#contact').val('');
+            $('#description').val('');
+            $('#tags').val('');
+            alert('Mentorship Created! TODO Ask to redirect home or to mentorship page');
+        }
+			}
+		});
+	}
+	</script>
+</head>
+<body onload='getAccount()'>
+
+<div id="title">
+	<img id="logo" src="imgs/logo.png" alt="Logo">
+	<span>CALVERT HALL COLLEGE</span>
+</div>
+
+<div class='container'>
+<nav id='navigationBar' class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Cardinal Connect</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="home.html">Home</a></li>
+        <li class="dropdown active">
+          <a class="dropdown" data-toggle="dropdown" href="#">Mentorships <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href='#' onclick='navigate("mentorships")'>All Mentorships</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "business")'>Business</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "finance")'>Finance</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "law")'>Law</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "medicine")'>Medicine</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "teaching")'>Teaching</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "trade")'>Trade</a></li>
+            <li><a href="#" onclick='navigate("mentorships", "other")'>Other</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown" data-toggle="dropdown" href="#">Internships <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href='#' onclick='navigate("internships")'>All Internships</a></li>
+            <li><a href="#" onclick='navigate("internships", "business")'>Business</a></li>
+            <li><a href="#" onclick='navigate("internships", "finance")'>Finance</a></li>
+            <li><a href="#" onclick='navigate("internships", "law")'>Law</a></li>
+            <li><a href="#" onclick='navigate("internships", "medicine")'>Medicine</a></li>
+            <li><a href="#" onclick='navigate("internships", "teaching")'>Teaching</a></li>
+            <li><a href="#" onclick='navigate("internships", "trade")'>Trade</a></li>
+            <li><a href="#" onclick='navigate("internships", "other")'>Other</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick='navigate("events")'>Events</a></li>
+        <li><a href='#' onclick='navigate("account")'>Account</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<form id='registerForm' class="form-horizontal">
+  <div class="form-group">
+	<label class="control-label col-sm-2" for="title">Title:</label>
+	<div class="col-sm-10">
+	  <input type="text" class="form-control" id="mentorshipTitle" placeholder="Title">
+	</div>
+  </div>
+ <div class="form-group">
+	<label class="control-label col-sm-2" for="location">Location:</label>
+	<div class="col-sm-10">
+	  <input type="text" class="form-control" id="location" placeholder="Location">
+	</div>
+  </div>
+  <div class="form-group">
+	<label class="control-label col-sm-2" for="company">Company:</label>
+	<div class="col-sm-10">
+	  <input type="text" class="form-control" id="company" placeholder="company">
+	</div>
+  </div>
+  <div class="form-group">
+	<label class="control-label col-sm-2" for="contact">Contact:</label>
+	<div class="col-sm-10">
+    <input type="text" class="form-control" id="contact" placeholder="Contact Email (if different than user email)">
+    <label><input type="checkbox" value=""> Contact Email is Different from User Email</label>
+	</div>
+  </div>
+  <div class="form-group">
+	<label class="control-label col-sm-2" for="description">Description:</label>
+	<div class="col-sm-10">
+	  <textarea class='form-control' rows='5' id='description'></textarea>
+	</div>
+  </div>
+
+  <div class="form-group">
+	<label class="control-label col-sm-2" for="pwd">Mentorship Focus:</label>
+	<div class="col-sm-10">
+	  <select id='mentorshipFocus' class='form-control'>
+		  <option value='business'>Business</option>
+		  <option value='finance'>Finance</option>
+		  <option value='law'>Law</option>
+		  <option value='medicine'>Medicine</option>
+		  <option value='teaching'>Teaching</option>
+		  <option value='trade'>Trade</option>
+		  <option value='other'>Other</option>
+	  </select>
+	</div>
+  </div>
+  <div class="form-group">
+	  <label class="control-label col-sm-2" for="tags">Tags:</label>
+	  <div class="col-sm-10">
+		  <input type="text" class="form-control" id="tags" placeholder="Add Focus Tags to your Mentorship (ex: [Marketing])">
+	  </div>
+  </div>
+
+  <div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</div>
+  </div>
+</form>
+
+</div>
+</body>
+</html>

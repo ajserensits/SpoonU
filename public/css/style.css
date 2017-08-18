@@ -1,0 +1,127 @@
+body
+{
+	background-color: #FFF0F0;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+*
+{
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none;
+}
+
+
+#title
+{
+	background-color: #222222;
+	padding: 8px;
+	border-radius: 0px 0px 32px 0px;
+}
+
+#title span
+{
+	cursor: default;
+	font-family: "Arial Black", Gadget, sans-serif;
+	border-top: 3px solid #e5a91c;
+	border-bottom: 3px solid #e5a91c;
+	color: #B61E2A;
+	font-size: 42px;
+	vertical-align: middle;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none;
+	line-height: 62px;
+}
+
+#logo
+{
+	width: 160px;
+	height: 100px;
+	margin-right: 0px;
+	vertical-align: middle;
+}
+
+.navbar-inverse {
+	margin-top: 4px;
+	border: 1px solid #a31b25;
+}
+
+.container-fluid {
+	background-color: #b61e2a;
+}
+
+.navbar-inverse .navbar-nav > li.active > a {
+	background-color: #c44a54;
+}
+
+.navbar > .container-fluid .navbar-brand {
+	color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+	color: #f2f2f2;
+}
+
+.navbar-nav > li > a {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover{
+	background-color: #bd343f;
+}
+
+.hidden {
+	display: none;
+}
+
+#footer {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	clear: both;
+	margin-top: 8px;
+}
+
+ul.nav.nav-pills {
+	padding: 4px;
+}
+
+ul.nav.nav-pills  > li.active > a {
+	background-color: #cf6e76;
+	color: #fff;
+}
+
+ul.nav.nav-pills > li > a {
+	color: #752c32;
+}
+
+#myNavbar ul li ul.dropdown-menu {
+	background-color: white;
+}
+
+#myNavbar ul > li > ul > li > a {
+	color: #333;
+}
+
+.cardinalSaveButton {
+	color: white;
+	background-color: #c44a54;
+}
+
+.cardinalSaveButton:hover {
+	color: white;
+	background-color: black;
+}
