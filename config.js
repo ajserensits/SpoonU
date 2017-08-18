@@ -3,7 +3,7 @@
   'use strict';
 
   let Globals = function () {
-    this.MONGO_URL = 'mongodb://localhost:27017/cardinal-connect';
+    this.MONGO_URL = 'mongodb://localhost:27017/spoonU';
     this.USER_TABLE = 'users';
     this.INTERNSHIP_TABLE = 'internships';
     this.MENTORSHIP_TABLE = 'mentorships';
