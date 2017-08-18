@@ -1,5 +1,5 @@
 {
-  "name": "cardinal-connect",
+  "name": "init",
   "version": "1.0.0",
   "description": "CardinalConnect is a system that will be used to connect students and alums with internships, mentorships and other events. Edit",
   "main": "index.js",
